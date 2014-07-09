@@ -1,13 +1,18 @@
 (function() {
     var storeModule = angular.module("sportsStore");
 
-    storeModule.controller("sportsStoreCtrl", function($scope, $http) {
-    	$scope.data = $scope.data || {};
+    storeModule
+    .constant("dataUrl", "http://localhost:5500/products")
+    .controller("sportsStoreCtrl", function($scope, $http, dataUrl) {
+        $scope.data = $scope.data || {};
 
-        $http.get("http://localhost:5500/products")
-        .success(function(response) {
-            $scope.data.products = response;
-        });
+        $http.get(dataUrl)
+            .success(function(data) {
+                $scope.data.products = data;
+            })
+            .error(function(error) {
+                $scope.data.error = error;
+            });
 
     });
 }());

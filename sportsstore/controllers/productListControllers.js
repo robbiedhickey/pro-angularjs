@@ -5,7 +5,7 @@
     .constant("productListActiveClass","btn-primary")
     .constant("productListPageCount", 3)
 	.controller("productListCtrl", function($scope, $filter, 
-		productListActiveClass, productListPageCount) {
+		productListActiveClass, productListPageCount, cartService) {
         
         var selectedCategory = null;
         $scope.selectedPage = 1;
@@ -31,6 +31,10 @@
 
         $scope.getPageClass = function(page){
         	return $scope.selectedPage == page ? productListActiveClass : "";
+        }
+
+        $scope.addProductToCart = function(product){
+            cartService.addProduct(product.id, product.name, product.price);
         }
     });
 }());
