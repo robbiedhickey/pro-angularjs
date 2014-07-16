@@ -1,7 +1,7 @@
 (function() {
-    var storeModule = angular.module("sportsStore");
+    "use strict";
 
-    storeModule
+   angular.module("sportsStore")
         .constant("dataUrl", "http://localhost:5500/products")
         .constant("orderUrl", "http://localhost:5500/orders")
         .controller("sportsStoreCtrl", function($scope, $http, dataUrl, $location, orderUrl, cartService) {
@@ -24,13 +24,13 @@
             			$scope.data.orderId = data.id;
             			cartService.getProducts().length = 0;
             		})
-            		.error(function(data){
+            		.error(function(error){
             			$scope.data.orderError = error;
             		})
             		.then(function(){
             			$location.path("complete");
             		});
-            }
+            };
 
         });
 }());
